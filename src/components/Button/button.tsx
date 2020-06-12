@@ -1,0 +1,63 @@
+import  React from 'react';
+import classNames from 'classnames';
+import { EventType } from '@testing-library/react';
+export enum ButtonSize { //设置button的size
+  Large = 'lg',
+  Small = 'sm'
+}
+export enum ButtonType { //设置button的type
+  Primary = 'primary',
+  Default = 'default',
+  Danger = 'danger',
+  Link = 'link' 
+}
+interface BaseButtonProps {
+  className?:string;
+  disabled?:boolean;
+  size?:ButtonSize;
+  btnType?:ButtonType; 
+  children:React.ReactNode;
+  href?:string;
+}
+type NativeButtonProps = BaseButtonProps&React.ButtonHTMLAttributes<HTMLElement>; //获取拓展的button按钮元所有属性
+type AnchorButtonProps = BaseButtonProps&React.AnchorHTMLAttributes<HTMLElement>; //获取a链接按钮所有属性
+type ButtonProps = Partial<NativeButtonProps&AnchorButtonProps>; //利用partial将所有属性变为可选的 不填也没什么事  
+const Button:React.FC<ButtonProps> = (props)=>{
+  const {
+    className, //用户填入的自定义classname
+    btnType,
+    disabled,
+    size,
+    children,
+    href,
+    ...restProps //用户填写入的其他参数 比如onclick之类的
+  } = props;
+  const classes = classNames('btn',className,{
+    [`btn-${btnType}`]:btnType,
+    [`btn-${size}`]:size,
+    disabled:(btnType===ButtonType.Link)&&disabled
+  })
+  if(btnType===ButtonType.Link&&href){
+    const linkClick = (e:React.MouseEvent)=>{
+      if(disabled){
+        e.preventDefault();
+      }
+    }
+    return (
+      <a className = {classes} href = {href} onClick = {linkClick} {...restProps}>
+        {children}
+      </a>
+    )
+  }else{
+    return (
+      <button className = {classes} disabled = {disabled} {...restProps}>
+        {children}
+      </button>
+    )
+  }
+}
+Button.defaultProps = {
+  disabled:false,
+  btnType:ButtonType.Default
+}
+export default Button;
