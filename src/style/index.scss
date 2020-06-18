@@ -1,7 +1,11 @@
 // config
 @import "variables";
-
 //layout
 @import "reboot.scss";
 @import './mixin.scss';
-@import "../components/Button/styles"
+@import './animation';
+@import "../components/Button/styles";
+@import '../components/Menu/style';
+@import '../components/Icon/style';
+@import '../components/Input/styles';
+@import '../components/AutoComplete/styles';

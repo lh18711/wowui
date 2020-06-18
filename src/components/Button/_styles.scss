@@ -10,7 +10,7 @@
   vertical-align: middle;
   background-image: none;
   border: $btn-border-width solid transparent;
-  @include button-size($btn-padding-x,$btn-padding-y,$btn-font-size,$btn-border-radius);
+  @include button-size($btn-padding-y,$btn-padding-x,$btn-font-size,$btn-border-radius);
   box-shadow: $btn-box-shadow;
   cursor: pointer;
   transition:$btn-transition;
@@ -23,13 +23,16 @@
       pointer-events: none;
     }
   }
+  &:focus {
+    outline:none;
+  }
 }
 
 .btn-lg {
-  @include button-size($btn-padding-x-lg,$btn-padding-y-lg,$btn-font-size-lg,$btn-border-radius);
+  @include button-size($btn-padding-y-lg,$btn-padding-x-lg,$btn-font-size-lg,$btn-border-radius);
 }
 .btn-sm {
-  @include button-size($btn-padding-x-sm,$btn-padding-y-sm,$btn-font-size-lg,$btn-border-radius);
+  @include button-size($btn-padding-y-sm,$btn-padding-x-sm,$btn-font-size-sm,$btn-border-radius);
 }
 .btn-primary {
   @include button-style($primary,$primary,$white)
